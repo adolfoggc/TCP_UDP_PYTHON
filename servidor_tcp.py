@@ -21,12 +21,13 @@ def turn_on(PORT):
 	        msg = con.recv(1024)
 	        if not msg: break
 	        if(msg == '\REQNUM'):
+	        	print 'REQNUM de', cliente
 	        	reqnum += 1
-	        	print(str(reqnum))
+	        	con.send(str(reqnum))
 	        elif(msg == '\UPTIME'):
-	        	print(str(datetime.datetime.now() - starting_time))
-	        else:
-	        	print cliente, msg
+	        	reqnum += 1
+	        	print 'UPTIME de', cliente
+	        	con.send(str(datetime.datetime.now() - starting_time))
 	    print 'Finalizando conexao do cliente', cliente
 	    con.close()
 
