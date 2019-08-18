@@ -10,12 +10,12 @@ def turn_on(HOST, PORT):
 	run_thread = True
 	listener.start()
 	print 'Para sair use \CLOSE\n'
-	msg = raw_input()
+	msg = '-'
 	while msg <> '\CLOSE':
-			print 'Esperando mensagem'
+			msg = raw_input()			
 			tcp.send (msg)
-			msg = raw_input()
-	run_thread = False
+			if msg == '\CLOSE':
+				run_thread = False
 	tcp.close()
 
 def listen(socket):

@@ -28,8 +28,12 @@ def turn_on(PORT):
 	        	reqnum += 1
 	        	print 'UPTIME de', cliente
 	        	con.send(str(datetime.datetime.now() - starting_time))
-	    print 'Finalizando conexao do cliente', cliente
+	        elif(msg == '\CLOSE'):
+						print 'Finalizando conexao do cliente', cliente
+						con.send(str('Bye bye, jovem padawan'))
+       	
+	    #print 'Finalizando conexao do cliente', cliente
 	    con.close()
 
 #p = int(input("Digite a porta que deseja ouvir: "))
-turn_on(5000)
+turn_on(3004)
