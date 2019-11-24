@@ -1,6 +1,6 @@
 import socket
 import datetime
-
+import time
 
 def turn_on(PORT):
 	HOST = ''              # Endereco IP do Servidor
@@ -28,12 +28,12 @@ def turn_on(PORT):
 	        	reqnum += 1
 	        	print 'UPTIME de', cliente
 	        	con.send(str(datetime.datetime.now() - starting_time))
-	        elif(msg == '\CLOSE'):
+	        elif(msg == 'SAIR'):
 						print 'Finalizando conexao do cliente', cliente
 						con.send(str('Bye bye, jovem padawan'))
        	
 	    #print 'Finalizando conexao do cliente', cliente
 	    con.close()
 
-#p = int(input("Digite a porta que deseja ouvir: "))
-turn_on(3004)
+p = int(raw_input("Digite a porta que deseja ouvir: "))
+turn_on(p)

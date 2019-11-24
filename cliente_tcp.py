@@ -1,5 +1,12 @@
 import socket
 import threading
+import time
+
+def menu():
+	print '='*10
+	print 'menu = Ver menu'
+	print '1 = Dizer "oi"'
+	print '='*10
 
 def turn_on(HOST, PORT):
 	tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -9,13 +16,18 @@ def turn_on(HOST, PORT):
 	global run_thread
 	run_thread = True
 	listener.start()
-	print 'Para sair use \CLOSE\n'
+	print 'Para sair use SAIR\n'
 	msg = '-'
-	while msg <> '\CLOSE':
-			msg = raw_input()			
-			tcp.send (msg)
-			if msg == '\CLOSE':
-				run_thread = False
+	while msg <> 'SAIR':
+			if msg == 'menu':
+				menu()
+				msg = ''
+			else:
+				msg = raw_input()			
+				tcp.send (msg)
+				
+				if msg == 'SAIR':
+					run_thread = False
 	tcp.close()
 
 def listen(socket):
@@ -27,6 +39,6 @@ def listen(socket):
 	print 'Listener desligado'
 
 run_thread = False
-h = raw_input("Digite o host que deseja alcancar: ")
-p = int(raw_input("Digite a porta a qual deseja enviar: "))
+h = 'localhost' #raw_input("Digite o host que deseja alcancar: ")
+p = int(raw_input("Digite a porta a qual deseja conectar: "))
 turn_on(h,p)
