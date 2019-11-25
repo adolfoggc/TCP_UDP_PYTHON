@@ -15,25 +15,22 @@ def turn_on(PORT):
     #starting_time = datetime.strptime(starting_time, '%H:%M:%S')
 	while True:
 	    con, cliente = tcp.accept()
-	    print 'Concetado por', cliente
+	    print 'Conectado por', cliente
 	    con.send('Bem-vindo, meu citoplasma!')
-	    while True:
-	        msg = con.recv(1024)
-	        if not msg: break
-	        if(msg == '\REQNUM'):
-	        	print 'REQNUM de', cliente
-	        	reqnum += 1
-	        	con.send(str(reqnum))
-	        elif(msg == '\UPTIME'):
-	        	reqnum += 1
-	        	print 'UPTIME de', cliente
-	        	con.send(str(datetime.datetime.now() - starting_time))
-	        elif(msg == 'SAIR'):
-						print 'Finalizando conexao do cliente', cliente
-						con.send(str('Bye bye, jovem padawan'))
+	    try:
+		    while True:
+		        msg = con.recv(1024)
+		        if not msg: break
+		        if(msg != ''):
+		        	print 'opa', cliente
+		        	con.send(str('opa'))
+		        if(msg == 'SAIR'):
+					print 'Finalizando conexao do cliente', cliente
+					con.send(str('\nBye bye, jovem padawan'))
        	
 	    #print 'Finalizando conexao do cliente', cliente
-	    con.close()
+	    finally:
+	    	con.close()
 
 p = int(raw_input("Digite a porta que deseja ouvir: "))
 turn_on(p)
