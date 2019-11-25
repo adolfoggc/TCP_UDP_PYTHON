@@ -1,6 +1,6 @@
 import socket
-import datetime
 import time
+from datetime import datetime
 
 def turn_on(PORT):
 	HOST = ''              # Endereco IP do Servidor
@@ -10,8 +10,8 @@ def turn_on(PORT):
 	tcp.bind(orig)
 	tcp.listen(1)
 	print 'Iniciando servidor na porta', PORT
-	reqnum = 0
-	starting_time = datetime.datetime.now()
+	#reqnum = 0
+	#starting_time = datetime.datetime.now()
     #starting_time = datetime.strptime(starting_time, '%H:%M:%S')
 	while True:
 	    con, cliente = tcp.accept()
@@ -21,11 +21,13 @@ def turn_on(PORT):
 		    while True:
 		        msg = con.recv(1024)
 		        if not msg: break
-		        if(msg != ''):
-		        	print 'opa', cliente
-		        	con.send(str('opa'))
+		        if(msg != '' and msg != 'SAIR'):
+		        	con.send(str(datetime.now()))
+		        	print msg
+		        	msg = ''
 		        if(msg == 'SAIR'):
 					print 'Finalizando conexao do cliente', cliente
+
 					con.send(str('\nBye bye, jovem padawan'))
        	
 	    #print 'Finalizando conexao do cliente', cliente
